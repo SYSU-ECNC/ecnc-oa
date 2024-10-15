@@ -33,7 +33,7 @@ func (app *Application) InitApplication() {
 	ctrl.RegisterRoutes()
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.ServerPort),
-		Handler:      ctrl.Mux,
+		Handler:      ctrl.Handler,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 15 * time.Second,
 		IdleTimeout:  time.Minute,

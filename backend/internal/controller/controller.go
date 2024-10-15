@@ -8,18 +8,22 @@ import (
 
 type Controller struct {
 	logger *slog.Logger
-	Mux    *http.ServeMux
+
+	Handler http.Handler
 }
 
 func NewController(logger *slog.Logger) *Controller {
-	return &Controller{logger: logger, Mux: http.NewServeMux()}
+	return &Controller{logger: logger}
 }
 
 func (ctrl *Controller) RegisterRoutes() {
 	v1Mux := http.NewServeMux()
-	v1Mux.Handle("GET /hello-world", ctrl.logging(http.HandlerFunc(ctrl.helloWorld)))
+	v1Mux.Handle("GET /hello-world", http.HandlerFunc(ctrl.helloWorld))
 
-	ctrl.Mux.Handle("/api/v1/", http.StripPrefix("/api/v1", v1Mux))
+	main := http.NewServeMux()
+	main.Handle("/api/v1/", http.StripPrefix("/api/v1", v1Mux))
+
+	ctrl.Handler = ctrl.logging(main)
 }
 
 func (ctrl *Controller) helloWorld(w http.ResponseWriter, r *http.Request) {
