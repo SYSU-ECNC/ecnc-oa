@@ -29,7 +29,7 @@ func (app *Application) InitApplication() {
 	cfg.LoadConfig()
 	app.cfg = cfg
 
-	ctrl := controller.NewController()
+	ctrl := controller.NewController(logger)
 	ctrl.RegisterRoutes()
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.ServerPort),
