@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func (ctrl *Controller) log(next http.Handler) http.Handler {
+func (ctrl *Controller) logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		startTime := time.Now()
 		clientIP := r.RemoteAddr
