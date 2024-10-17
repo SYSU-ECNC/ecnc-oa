@@ -4,16 +4,19 @@ import (
 	"encoding/json"
 	"log/slog"
 	"net/http"
+
+	"github.com/SYSU-ECNC/ecnc-oa/backend/internal/service"
 )
 
 type Controller struct {
 	logger *slog.Logger
+	svc    *service.Service
 
 	Handler http.Handler
 }
 
-func NewController(logger *slog.Logger) *Controller {
-	return &Controller{logger: logger}
+func NewController(logger *slog.Logger, svc *service.Service) *Controller {
+	return &Controller{logger: logger, svc: svc}
 }
 
 func (ctrl *Controller) RegisterRoutes() {

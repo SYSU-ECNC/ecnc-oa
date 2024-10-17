@@ -7,7 +7,8 @@ import (
 type Config struct {
 	logger *slog.Logger
 
-	ServerPort int
+	ServerPort       int
+	DatabasePassword string
 }
 
 func NewConfig(logger *slog.Logger) *Config {
@@ -16,4 +17,5 @@ func NewConfig(logger *slog.Logger) *Config {
 
 func (cfg *Config) LoadConfig() {
 	cfg.ServerPort = cfg.readIntEnv("SERVER_PORT", 3000)
+	cfg.DatabasePassword = cfg.readStringEnv("DATABASE_PASSWORD", "postgrespassword")
 }
