@@ -1,38 +1,31 @@
 package controller
 
 import (
-	"encoding/json"
 	"log/slog"
 	"net/http"
 
-	"github.com/SYSU-ECNC/ecnc-oa/backend/internal/service"
+	"github.com/SYSU-ECNC/ecnc-oa/backend/internal/config"
+	"github.com/SYSU-ECNC/ecnc-oa/backend/internal/repository"
 )
 
 type Controller struct {
+	cfg    *config.Config
 	logger *slog.Logger
-	svc    *service.Service
+	repo   *repository.Repository
 
 	Handler http.Handler
 }
 
-func NewController(logger *slog.Logger, svc *service.Service) *Controller {
-	return &Controller{logger: logger, svc: svc}
+func NewController(cfg *config.Config, logger *slog.Logger, repo *repository.Repository) *Controller {
+	return &Controller{cfg: cfg, logger: logger, repo: repo}
 }
 
 func (ctrl *Controller) RegisterRoutes() {
 	v1Mux := http.NewServeMux()
-	v1Mux.Handle("GET /hello-world", http.HandlerFunc(ctrl.helloWorld))
+	v1Mux.Handle("POST /auth/login", http.HandlerFunc(ctrl.login))
 
 	main := http.NewServeMux()
 	main.Handle("/api/v1/", http.StripPrefix("/api/v1", v1Mux))
 
 	ctrl.Handler = ctrl.logging(main)
-}
-
-func (ctrl *Controller) helloWorld(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	_ = json.NewEncoder(w).Encode(map[string]string{
-		"message": "Hello, world!",
-	})
 }
