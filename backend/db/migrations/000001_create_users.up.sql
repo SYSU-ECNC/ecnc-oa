@@ -5,7 +5,9 @@ CREATE TABLE
         password_hash TEXT NOT NULL,
         full_name TEXT NOT NULL,
         role TEXT NOT NULL,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW ()
+        is_active BOOLEAN NOT NULL DEFAULT TRUE,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW (),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW ()
     );
 
 INSERT INTO
