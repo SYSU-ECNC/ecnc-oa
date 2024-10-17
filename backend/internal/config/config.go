@@ -7,8 +7,9 @@ import (
 type Config struct {
 	logger *slog.Logger
 
-	ServerPort       int
 	DatabasePassword string
+	JWTSecret        string
+	ServerPort       int
 }
 
 func NewConfig(logger *slog.Logger) *Config {
@@ -16,6 +17,7 @@ func NewConfig(logger *slog.Logger) *Config {
 }
 
 func (cfg *Config) LoadConfig() {
-	cfg.ServerPort = cfg.readIntEnv("SERVER_PORT", 3000)
 	cfg.DatabasePassword = cfg.readStringEnv("DATABASE_PASSWORD", "postgrespassword")
+	cfg.JWTSecret = cfg.readStringEnv("JWT_SECRET", "d4c900b4994de272126318ffa6eb90be")
+	cfg.ServerPort = cfg.readIntEnv("SERVER_PORT", 3000)
 }
