@@ -80,3 +80,16 @@ func (ctrl *Controller) login(w http.ResponseWriter, r *http.Request) {
 
 	ctrl.writeSuccessJSON(w, http.StatusOK, "登录成功", nil)
 }
+
+func (ctrl *Controller) logout(w http.ResponseWriter, r *http.Request) {
+	expires := time.Now().Add(-time.Hour)
+	cookie := &http.Cookie{
+		Name:     "__ecnc_oa_jwt",
+		Value:    "",
+		Path:     "/",
+		Expires:  expires,
+		HttpOnly: true,
+	}
+	http.SetCookie(w, cookie)
+	ctrl.writeSuccessJSON(w, http.StatusOK, "登出成功", nil)
+}

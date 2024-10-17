@@ -23,6 +23,7 @@ func NewController(cfg *config.Config, logger *slog.Logger, repo *repository.Rep
 func (ctrl *Controller) RegisterRoutes() {
 	v1Mux := http.NewServeMux()
 	v1Mux.Handle("POST /auth/login", http.HandlerFunc(ctrl.login))
+	v1Mux.Handle("DELETE /auth/logout", http.HandlerFunc(ctrl.logout))
 
 	main := http.NewServeMux()
 	main.Handle("/api/v1/", http.StripPrefix("/api/v1", v1Mux))
