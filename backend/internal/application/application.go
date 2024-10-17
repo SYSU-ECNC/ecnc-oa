@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/SYSU-ECNC/ecnc-oa/internal/config"
-	"github.com/SYSU-ECNC/ecnc-oa/internal/controller"
+	"github.com/SYSU-ECNC/ecnc-oa/backend/internal/config"
+	"github.com/SYSU-ECNC/ecnc-oa/backend/internal/controller"
 )
 
 type Application struct {
