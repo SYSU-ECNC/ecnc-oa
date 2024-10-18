@@ -26,6 +26,9 @@ const LXGWWenKai = localFont({
 export const metadata: Metadata = {
   title: "ECNC OA",
   description: "用于 ECNC 排班，考勤，请假的系统",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 interface RootLayoutProps {
