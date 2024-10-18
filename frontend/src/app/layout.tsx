@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: "用于 ECNC 排班，考勤，请假的系统",
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="zh-CN">
       <body>{children}</body>
